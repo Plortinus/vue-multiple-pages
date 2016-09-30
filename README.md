@@ -28,4 +28,8 @@ npm run dev
 ``` bash
 # build for production with minification
 npm run build
+node server.js
+
 ```
+
+[http://localhost:2333/pages/user/login.html](http://localhost:2333/pages/user/login.html)
