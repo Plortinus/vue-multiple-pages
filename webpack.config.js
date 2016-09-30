@@ -61,7 +61,10 @@ var config = {
       chunks: chunks,
       minChunks: 1
     }),
-    new ExtractTextPlugin('assets/css/main.css')
+    new ExtractTextPlugin({
+      filename: 'assets/css/main.css',
+      allChunks: true
+    })
   ],
   devServer: {
     historyApiFallback: false,
