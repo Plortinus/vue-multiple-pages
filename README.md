@@ -30,4 +30,4 @@ npm run build
 node server.js
 ```
 
-[http://localhost:2333/pages/user/login.html](http://localhost:2333/pages/user/login.html)
+[http://localhost:2333/user/login.html](http://localhost:2333/user/login.html)
