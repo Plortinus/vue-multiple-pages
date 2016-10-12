@@ -12,7 +12,7 @@ var chunks = getChunkName();
 var config = {
   entry: entries,
   output: {
-    path: path.resolve(__dirname, "./dist"),
+    path: path.resolve(__dirname, './dist'),
     filename: '[name].js',
     publicPath: '/'
   },
@@ -20,8 +20,8 @@ var config = {
     //配置别名，在项目中可缩减引用路径
     extensions: ['.js', '.vue'],
     alias: {
-      assets: path.join(__dirname,"/app/assets"),
-      components: path.join(__dirname,"/app/components"),
+      assets: path.join(__dirname,'/app/assets'),
+      components: path.join(__dirname,'/app/components'),
       root: path.join(__dirname, 'node_modules')
     }
   },
@@ -37,8 +37,8 @@ var config = {
         exclude: /node_modules/
       },
       { test: /\.css$/, loader: ExtractTextPlugin.extract({
-          fallbackLoader: "style-loader",
-          loader: "css-loader"
+          fallbackLoader: 'style-loader',
+          loader: 'css-loader'
         })
       },
       {
@@ -69,13 +69,13 @@ var config = {
   devServer: {
     historyApiFallback: false,
     noInfo: true,
-    proxy: {
-      '/github': {
-        target: 'https://github.com/github',
-        changeOrigin: true,
-        pathRewrite: {'^/github' : ''}
-      }
-    },
+    // proxy: {
+    //   '/github': {
+    //     target: 'https://github.com/github',
+    //     changeOrigin: true,
+    //     pathRewrite: {'^/github' : ''}
+    //   }
+    // },
   },
   devtool: '#eval-source-map'
 };
@@ -84,7 +84,7 @@ var pages = getHtmls();
 pages.forEach(function (pathname) {
   // filename 用文件夹名字
   var conf = {
-    filename: pathname.substring(0, pathname.length - 4) + '.html', //生成的html存放路径，相对于path
+    filename: pathname.substring(6, pathname.length - 4) + '.html', //生成的html存放路径，相对于path
     template: 'app/' + pathname + '.html', //html模板路径
   };
 
@@ -101,7 +101,7 @@ module.exports = config;
 function getEntry() {
   var entry = {};
   glob.sync('./app/pages/**/*.js').forEach(function (name) {
-    var n = name.slice(name.lastIndexOf('app/') + 4, name.length -3);
+    var n = name.slice(name.lastIndexOf('app/') + 10, name.length -3);
     // console.log('n = ' + n + ', m = ' + name)
     entry[n] = [name];
   });
@@ -110,7 +110,7 @@ function getEntry() {
 function getChunkName () {
   var entry = [];
   glob.sync('./app/pages/**/*.js').forEach(function (name) {
-    var n = name.slice(name.lastIndexOf('app/') + 4, name.length - 3);
+    var n = name.slice(name.lastIndexOf('app/') + 10, name.length - 3);
     entry.push(n);
   });
   return entry;
