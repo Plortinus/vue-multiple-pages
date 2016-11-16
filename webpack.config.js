@@ -103,7 +103,6 @@ function getEntry() {
   var entry = {};
   glob.sync('./app/pages/**/*.js').forEach(function (name) {
     var n = name.slice(name.lastIndexOf('app/') + 10, name.length -3);
-    console.log('n = ' + n + ', m = ' + name)
     entry[n] = [name];
   });
   return entry;
