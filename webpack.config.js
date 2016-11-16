@@ -29,25 +29,26 @@ var config = {
     loaders: [
       {
         test: /\.vue$/,
-        loader: 'vue'
+        loader: 'vue-loader'
       },
       {
         test: /\.js$/,
-        loader: 'babel',
+        loader: 'babel-loader',
         exclude: /node_modules/
       },
-      { test: /\.css$/, loader: ExtractTextPlugin.extract({
+      {
+        test: /\.css$/, loader: ExtractTextPlugin.extract({
           fallbackLoader: 'style-loader',
           loader: 'css-loader'
         })
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2)$/,
-        loader: 'file'
+        loader: 'file-loader'
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file',
+        loader: 'file-loader',
         query: {
           name: '[name].[ext]?[hash]'
         }
@@ -102,7 +103,7 @@ function getEntry() {
   var entry = {};
   glob.sync('./app/pages/**/*.js').forEach(function (name) {
     var n = name.slice(name.lastIndexOf('app/') + 10, name.length -3);
-    // console.log('n = ' + n + ', m = ' + name)
+    console.log('n = ' + n + ', m = ' + name)
     entry[n] = [name];
   });
   return entry;
