@@ -46,7 +46,7 @@ node server.js
 │              ├── index  # index 页面
 │              │    ├── app.js    # 入口js
 │              │    ├── app.html  # html模板
-│              │    └── app.vue   # login 页面组件
+│              │    └── app.vue   # index 页面组件
 │              └── login  # login 页面
 │                   ├── app.js    # 入口js
 │                   ├── app.html  # html模板
