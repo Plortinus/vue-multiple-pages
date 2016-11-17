@@ -20,6 +20,7 @@ npm run dev
 ```
 
 [http://localhost:8080/user/login.html](http://localhost:8080/user/login.html)
+
 [http://localhost:8080/user/index.html](http://localhost:8080/user/index.html)
 
 ## Build
@@ -31,3 +32,30 @@ node server.js
 ```
 
 [http://localhost:2333/user/login.html](http://localhost:2333/user/login.html)
+
+## 文件目录
+
+```bash
+├── app             # 主目录
+│    ├── assets     # 资源目录
+│    │    ├── css   # css
+│    │    └── img   # 图片目录
+│    ├── components # 自定义组件目录
+│    └── pages      # 页面目录
+│         └── user  # 业务模块目录
+│              ├── index  # index 页面
+│              │    ├── app.js    # 入口js
+│              │    ├── app.html  # html模板
+│              │    └── app.vue   # login 页面组件
+│              └── login  # login 页面
+│                   ├── app.js    # 入口js
+│                   ├── app.html  # html模板
+│                   └── app.vue   # login 页面组件
+├── dist            # npm run build生成的目录
+├── node_modules    # dependencies
+├── .babelrc        # babel文件
+├── server.js       # 用于查看npm run build的server.js，端口2333
+├── webpack.config.js # webpack配置目录
+├── node_modules    # dependencies
+└── package.json    # package info
+```
