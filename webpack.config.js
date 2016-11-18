@@ -88,10 +88,10 @@ pages.forEach(function (pathname) {
     filename: pathname.substring(6, pathname.length - 4) + '.html', //生成的html存放路径，相对于path
     template: 'app/' + pathname + '.html', //html模板路径
   };
-
-  if (chunks.indexOf(pathname) > -1) {
+  var chunk = pathname.substring(6, pathname.length);
+  if (chunks.indexOf(chunk) > -1) {
     conf.inject = 'body';
-    conf.chunks = ['vendors', pathname];
+    conf.chunks = ['vendors', chunk];
     conf.hash = true;
   }
   config.plugins.push(new HtmlWebpackPlugin(conf));
