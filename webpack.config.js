@@ -92,6 +92,8 @@ pages.forEach(function (pathname) {
   if (chunks.indexOf(chunk) > -1) {
     conf.inject = 'body';
     conf.chunks = ['vendors', chunk];
+  }
+  if (process.env.NODE_ENV === 'production') {
     conf.hash = true;
   }
   config.plugins.push(new HtmlWebpackPlugin(conf));
