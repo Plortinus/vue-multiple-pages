@@ -22,8 +22,7 @@ var config = {
     alias: {
       assets: path.join(__dirname,'/app/assets'),
       components: path.join(__dirname,'/app/components'),
-      root: path.join(__dirname, 'node_modules'),
-      vue: 'vue/dist/vue.js'
+      root: path.join(__dirname, 'node_modules')
     }
   },
   module: {
