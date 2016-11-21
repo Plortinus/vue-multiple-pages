@@ -1,7 +1,7 @@
 {
-  "name": "element-starter",
+  "name": "vue-multiple-pages",
   "description": "A Vue.js project",
-  "author": "yi.shyang@ele.me",
+  "author": "plortinus@gmail.com",
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot",
