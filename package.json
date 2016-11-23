@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "element-ui": "^1.0.0",
-    "vue": "^2.0.6"
+    "vue": "^2.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.18.2",
@@ -22,7 +22,8 @@
     "glob": "^7.1.1",
     "html-webpack-plugin": "^2.22.0",
     "style-loader": "^0.13.1",
-    "vue-loader": "^9.9.5",
+    "vue-loader": "^10.0.0",
+    "vue-template-compiler": "^2.1.0",
     "webpack": "beta",
     "webpack-dev-server": "beta"
   }
