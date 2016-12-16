@@ -60,7 +60,7 @@ var config = {
       name: 'vendors',
       filename: 'assets/js/vendors.js',
       chunks: chunks,
-      minChunks: 1
+      minChunks: chunks.length
     }),
     new ExtractTextPlugin({
       filename: 'assets/css/main.css',
