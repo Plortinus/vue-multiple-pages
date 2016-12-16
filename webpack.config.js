@@ -6,8 +6,9 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 
-var entries = getEntry();
-var chunks = getChunkName();
+var entries = {};
+var chunks = [];
+getEntriesAndChunks();
 
 var config = {
   entry: entries,
@@ -101,29 +102,21 @@ pages.forEach(function (pathname) {
 
 module.exports = config;
 
-function getEntry() {
-  var entry = {};
+function getEntriesAndChunks() {
   glob.sync('./app/pages/**/*.js').forEach(function (name) {
     var n = name.slice(name.lastIndexOf('app/') + 10, name.length -3);
-    entry[n] = [name];
+    entries[n] = [name];
+    chunks.push(n);
   });
-  return entry;
 }
-function getChunkName () {
-  var entry = [];
-  glob.sync('./app/pages/**/*.js').forEach(function (name) {
-    var n = name.slice(name.lastIndexOf('app/') + 10, name.length - 3);
-    entry.push(n);
-  });
-  return entry;
-}
+
 function getHtmls() {
-  var entry = [];
+  var htmls = [];
   glob.sync('./app/pages/**/*.html').forEach(function (name) {
     var n = name.slice(name.lastIndexOf('app/') + 4, name.length - 5);
-    entry.push(n);
+    htmls.push(n);
   });
-  return entry;
+  return htmls;
 }
 
 if (process.env.NODE_ENV === 'production') {
