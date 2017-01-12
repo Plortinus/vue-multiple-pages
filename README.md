@@ -2,7 +2,13 @@
 
 >Vue2.0多页应用
 
-## Start
+## Links 依赖链接
+
+1. [Vue](https://github.com/vuejs/vue)
+2. [Webpack](https://github.com/webpack/webpack)
+3. [Element](https://github.com/ElemeFE/element)
+
+## Start 开始
 
  - Clone or download this repository
  - Enter your local directory, and install dependencies:
@@ -11,7 +17,7 @@
 npm install
 ```
 
-## Develop
+## Develop 开发构建
 
 ``` bash
 # serve with hot reload at localhost:8080
@@ -23,7 +29,7 @@ npm run dev
 
 [http://localhost:8080/user/index.html](http://localhost:8080/user/index.html)
 
-## Build
+## Build 生产构建
 
 ``` bash
 # build for production with minification
@@ -33,7 +39,7 @@ node server.js
 
 [http://localhost:2333/user/login.html](http://localhost:2333/user/login.html)
 
-## 文件目录
+## Folder Structure 文件目录
 
 ```bash
 ├── app             # 主目录
