@@ -79,10 +79,7 @@ var config = {
     //   }
     // },
   },
-  devtool: '#eval-source-map',
-  performance: {
-    hints: false
-  }
+  devtool: '#eval-source-map'
 };
 
 var pages = getHtmls();
