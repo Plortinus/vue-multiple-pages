@@ -42,7 +42,7 @@ node server.js
 ## Folder Structure 文件目录
 
 ```bash
-├── app             # 主目录
+├── src             # 主目录
 │    ├── assets     # 资源目录
 │    │    ├── css   # css
 │    │    └── img   # 图片目录

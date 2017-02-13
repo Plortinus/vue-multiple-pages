@@ -1,19 +1,19 @@
-var path = require('path');
-var webpack = require('webpack');
-var glob = require('glob');
+const { join, resolve } = require('path');
+const webpack = require('webpack');
+const glob = require('glob');
 
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 
-var entries = {};
-var chunks = [];
+let entries = {};
+let chunks = [];
 getEntriesAndChunks();
 
-var config = {
+let config = {
   entry: entries,
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: resolve(__dirname, './dist'),
     filename: '[name].js',
     publicPath: '/'
   },
@@ -21,38 +21,48 @@ var config = {
     //配置别名，在项目中可缩减引用路径
     extensions: ['.js', '.vue'],
     alias: {
-      assets: path.join(__dirname,'/app/assets'),
-      components: path.join(__dirname,'/app/components'),
-      root: path.join(__dirname, 'node_modules')
+      assets: join(__dirname,'/src/assets'),
+      components: join(__dirname,'/src/components'),
+      root: join(__dirname, 'node_modules')
     }
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.vue$/,
-        loader: 'vue-loader'
+        use: 'vue-loader'
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        use: 'babel-loader',
         exclude: /node_modules/
       },
       {
-        test: /\.css$/, loader: ExtractTextPlugin.extract({
-          fallbackLoader: 'style-loader',
-          loader: 'css-loader'
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader'
         })
       },
       {
-        test: /\.(eot|svg|ttf|woff|woff2)$/,
-        loader: 'file-loader'
+        test: /\.html$/,
+        use: [{
+          loader: 'html-loader',
+          options: {
+            root: resolve(__dirname, 'src'),
+            attrs: ['img:src', 'link:href']
+          }
+        }]
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file-loader',
-        query: {
-          name: '[name].[ext]?[hash]'
-        }
+        test: /\.(png|jpg|jpeg|gif|eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/,
+        exclude: /favicon\.png$/,
+        use: [{
+          loader: 'url-loader',
+          options: {
+            limit: 10000
+          }
+        }]
       }
     ]
   },
@@ -69,25 +79,27 @@ var config = {
     })
   ],
   devServer: {
+    host: '127.0.0.1',
+    port: 8010,
     historyApiFallback: false,
     noInfo: true,
-    // proxy: {
-    //   '/github': {
-    //     target: 'https://github.com/github',
-    //     changeOrigin: true,
-    //     pathRewrite: {'^/github' : ''}
-    //   }
-    // },
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:8080',
+        changeOrigin: true,
+        pathRewrite: {'^/api' : ''}
+      }
+    },
   },
   devtool: '#eval-source-map'
 };
 
-var pages = getHtmls();
+const pages = getHtmls();
 pages.forEach(function (pathname) {
   // filename 用文件夹名字
   var conf = {
     filename: pathname.substring(6, pathname.length - 4) + '.html', //生成的html存放路径，相对于path
-    template: 'app/' + pathname + '.html', //html模板路径
+    template: 'src/' + pathname + '.html', //html模板路径
   };
   var chunk = pathname.substring(6, pathname.length);
   if (chunks.indexOf(chunk) > -1) {
@@ -97,14 +109,15 @@ pages.forEach(function (pathname) {
   if (process.env.NODE_ENV === 'production') {
     conf.hash = true;
   }
+  conf.favicon = './src/assets/img/logo.png';
   config.plugins.push(new HtmlWebpackPlugin(conf));
 });
 
 module.exports = config;
 
 function getEntriesAndChunks() {
-  glob.sync('./app/pages/**/*.js').forEach(function (name) {
-    var n = name.slice(name.lastIndexOf('app/') + 10, name.length -3);
+  glob.sync('./src/pages/**/*.js').forEach(function (name) {
+    var n = name.slice(name.lastIndexOf('src/') + 10, name.length -3);
     entries[n] = [name];
     chunks.push(n);
   });
@@ -112,8 +125,8 @@ function getEntriesAndChunks() {
 
 function getHtmls() {
   var htmls = [];
-  glob.sync('./app/pages/**/*.html').forEach(function (name) {
-    var n = name.slice(name.lastIndexOf('app/') + 4, name.length - 5);
+  glob.sync('./src/pages/**/*.html').forEach(function (name) {
+    var n = name.slice(name.lastIndexOf('src/') + 4, name.length - 5);
     htmls.push(n);
   });
   return htmls;
