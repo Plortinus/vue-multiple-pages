@@ -25,9 +25,9 @@ npm run dev
 
 ```
 
-[http://localhost:8080/user/login.html](http://localhost:8080/user/login.html)
+[http://localhost:8010/user/login.html](http://localhost:8010/user/login.html)
 
-[http://localhost:8080/user/index.html](http://localhost:8080/user/index.html)
+[http://localhost:8010/user/index.html](http://localhost:8010/user/index.html)
 
 ## Build 生产构建
 
