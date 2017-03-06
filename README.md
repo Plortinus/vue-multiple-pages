@@ -60,6 +60,7 @@ node server.js
 ├── dist            # npm run build生成的目录
 ├── node_modules    # dependencies
 ├── .babelrc        # babel文件
+├── .eslintrc.js    # eslint配置
 ├── server.js       # 用于查看npm run build的server.js，端口2333
 ├── webpack.config.js # webpack配置目录
 ├── node_modules    # dependencies
