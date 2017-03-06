@@ -1,16 +1,20 @@
-const { join, resolve } = require('path');
-const webpack = require('webpack');
-const glob = require('glob');
+const { join, resolve } = require('path')
+const webpack = require('webpack')
+const glob = require('glob')
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin')
 
-let entries = {};
-let chunks = [];
-getEntriesAndChunks();
+const entries = {}
+const chunks = []
+glob.sync('./src/pages/**/*.js').forEach(function (name) {
+  const n = name.slice(name.lastIndexOf('src/') + 10, name.length - 3)
+  entries[n] = [name]
+  chunks.push(n)
+})
 
-let config = {
+const config = {
   entry: entries,
   output: {
     path: resolve(__dirname, './dist'),
@@ -18,11 +22,11 @@ let config = {
     publicPath: '/'
   },
   resolve: {
-    //配置别名，在项目中可缩减引用路径
+    // 配置别名，在项目中可缩减引用路径
     extensions: ['.js', '.vue'],
     alias: {
-      assets: join(__dirname,'/src/assets'),
-      components: join(__dirname,'/src/components'),
+      assets: join(__dirname, '/src/assets'),
+      components: join(__dirname, '/src/components'),
       root: join(__dirname, 'node_modules')
     }
   },
@@ -87,53 +91,36 @@ let config = {
       '/api': {
         target: 'http://127.0.0.1:8080',
         changeOrigin: true,
-        pathRewrite: {'^/api' : ''}
+        pathRewrite: { '^/api': '' }
       }
-    },
+    }
   },
   devtool: '#eval-source-map'
-};
+}
 
-const pages = getHtmls();
-pages.forEach(function (pathname) {
+glob.sync('./src/pages/**/*.html').forEach(function (name) {
+  const pathname = name.slice(name.lastIndexOf('src/') + 4, name.length - 5)
   // filename 用文件夹名字
-  var conf = {
-    filename: pathname.substring(6, pathname.length - 4) + '.html', //生成的html存放路径，相对于path
-    template: 'src/' + pathname + '.html', //html模板路径
-  };
-  var chunk = pathname.substring(6, pathname.length);
+  const conf = {
+    filename: pathname.substring(6, pathname.length - 4) + '.html', // 生成的html存放路径，相对于path
+    template: 'src/' + pathname + '.html' // html模板路径
+  }
+  const chunk = pathname.substring(6, pathname.length)
   if (chunks.indexOf(chunk) > -1) {
-    conf.inject = 'body';
-    conf.chunks = ['vendors', chunk];
+    conf.inject = 'body'
+    conf.chunks = ['vendors', chunk]
   }
   if (process.env.NODE_ENV === 'production') {
-    conf.hash = true;
+    conf.hash = true
   }
-  conf.favicon = './src/assets/img/logo.png';
-  config.plugins.push(new HtmlWebpackPlugin(conf));
-});
+  conf.favicon = './src/assets/img/logo.png'
+  config.plugins.push(new HtmlWebpackPlugin(conf))
+})
 
-module.exports = config;
-
-function getEntriesAndChunks() {
-  glob.sync('./src/pages/**/*.js').forEach(function (name) {
-    var n = name.slice(name.lastIndexOf('src/') + 10, name.length -3);
-    entries[n] = [name];
-    chunks.push(n);
-  });
-}
-
-function getHtmls() {
-  var htmls = [];
-  glob.sync('./src/pages/**/*.html').forEach(function (name) {
-    var n = name.slice(name.lastIndexOf('src/') + 4, name.length - 5);
-    htmls.push(n);
-  });
-  return htmls;
-}
+module.exports = config
 
 if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = '#source-map';
+  module.exports.devtool = '#source-map'
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
@@ -146,5 +133,5 @@ if (process.env.NODE_ENV === 'production') {
         warnings: false
       }
     })
-  ]);
+  ])
 }
