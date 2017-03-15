@@ -22,7 +22,6 @@ const config = {
     publicPath: '/'
   },
   resolve: {
-    // 配置别名，在项目中可缩减引用路径
     extensions: ['.js', '.vue'],
     alias: {
       assets: join(__dirname, '/src/assets'),
@@ -100,10 +99,10 @@ const config = {
 
 glob.sync('./src/pages/**/*.html').forEach(function (name) {
   const pathname = name.slice(name.lastIndexOf('src/') + 4, name.length - 5)
-  // filename 用文件夹名字
+  // filename used folder's name
   const conf = {
-    filename: pathname.substring(6, pathname.length - 4) + '.html', // 生成的html存放路径，相对于path
-    template: 'src/' + pathname + '.html' // html模板路径
+    filename: pathname.substring(6, pathname.length - 4) + '.html',
+    template: 'src/' + pathname + '.html'
   }
   const chunk = pathname.substring(6, pathname.length)
   if (chunks.indexOf(chunk) > -1) {

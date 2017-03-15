@@ -1,8 +1,8 @@
 {
   "name": "vue-multiple-pages",
-  "description": "A Vue.js project",
+  "description": "A Vue2 starter",
   "author": "plortinus@gmail.com",
-  "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"

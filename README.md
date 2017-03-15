@@ -1,14 +1,16 @@
 # vue-multiple-pages
 
->Vue2.0多页应用
+**This project is a modern Vue.js starter
+which uses Vue 2, Webpack2, and ElementUI**
 
-## Links 依赖链接
+## Features
 
-1. [Vue](https://github.com/vuejs/vue)
-2. [Webpack](https://github.com/webpack/webpack)
-3. [Element](https://github.com/ElemeFE/element)
+1. [Vue2](https://github.com/vuejs/vue)
+2. [Webpack2](https://github.com/webpack/webpack)
+3. [ElementUI](https://github.com/ElemeFE/element)
+4. [Eslint](https://github.com/eslint/eslint)
 
-## Start 开始
+## Start
 
  - Clone or download this repository
  - Enter your local directory, and install dependencies:
@@ -17,10 +19,10 @@
 npm install
 ```
 
-## Develop 开发构建
+## Dev
 
 ``` bash
-# serve with hot reload at localhost:8080
+# serve with hot reload at localhost:8010
 npm run dev
 
 ```
@@ -29,7 +31,7 @@ npm run dev
 
 [http://localhost:8010/user/index.html](http://localhost:8010/user/index.html)
 
-## Build 生产构建
+## Build
 
 ``` bash
 # build for production with minification
@@ -39,30 +41,33 @@ node server.js
 
 [http://localhost:2333/user/login.html](http://localhost:2333/user/login.html)
 
-## Folder Structure 文件目录
+## Folder Structure
 
 ```bash
-├── src             # 主目录
-│    ├── assets     # 资源目录
+├── src             # main
+│    ├── assets     # source
 │    │    ├── css   # css
-│    │    └── img   # 图片目录
-│    ├── components # 自定义组件目录
-│    └── pages      # 页面目录
-│         └── user  # 业务模块目录
-│              ├── index  # index 页面
-│              │    ├── app.js    # 入口js
-│              │    ├── app.html  # html模板
-│              │    └── app.vue   # index 页面组件
-│              └── login  # login 页面
-│                   ├── app.js    # 入口js
-│                   ├── app.html  # html模板
-│                   └── app.vue   # login 页面组件
-├── dist            # npm run build生成的目录
+│    │    └── img   # img
+│    ├── components # components
+│    └── pages      # pages
+│         └── user  # user part
+│              ├── index  # index.html
+│              │    ├── app.js    # entry js
+│              │    ├── app.html  # html template
+│              │    └── app.vue   # main vue for login
+│              └── login  # login.html
+│                   ├── app.js    # entry js
+│                   ├── app.html  # html template
+│                   └── app.vue   # main vue for login
+├── dist            # npm run build result
 ├── node_modules    # dependencies
-├── .babelrc        # babel文件
-├── .eslintrc.js    # eslint配置
-├── server.js       # 用于查看npm run build的server.js，端口2333
-├── webpack.config.js # webpack配置目录
+├── .babelrc        # babel config
+├── .eslintrc.js    # eslint config
+├── server.js       # port 2333
+├── webpack.config.js # webpack config
 ├── node_modules    # dependencies
 └── package.json    # package info
 ```
+
+## License
+MIT

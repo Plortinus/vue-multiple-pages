@@ -1,11 +1,11 @@
-//var TARGET = 'https://github.com';
-var express = require('express');
-var app = express();
-var http = require('http');
-var httpProxy = require('http-proxy');
-var proxy = httpProxy.createProxyServer({});
+// var TARGET = 'https://github.com';
+var express = require('express')
+var app = express()
+var http = require('http')
+var httpProxy = require('http-proxy')
+var proxy = httpProxy.createProxyServer({})
 
-app.use(express.static('./dist'));
+app.use(express.static('./dist'))
 
 // app.all('/*', function(req, res, next) {
 //   console.log(req.url);
@@ -15,8 +15,8 @@ app.use(express.static('./dist'));
 //   // next();
 // });
 
-app.get('/', function(req, res) {
-  res.send('Hello Vue');
-});
+app.get('/', function (req, res) {
+  res.send('Hello Vue')
+})
 
-app.listen(2333);
+app.listen(2333)
