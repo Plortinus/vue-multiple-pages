@@ -139,7 +139,7 @@ node server.js
   })
   ```
 
-##Inspired by [element-starter](https://github.com/ElementUI/element-starter)
+## Inspired by [element-starter](https://github.com/ElementUI/element-starter)
 
 ## License
 MIT
