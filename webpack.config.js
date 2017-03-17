@@ -8,10 +8,10 @@ const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin')
 
 const entries = {}
 const chunks = []
-glob.sync('./src/pages/**/*.js').forEach(function (name) {
-  const n = name.slice(name.lastIndexOf('src/') + 10, name.length - 3)
-  entries[n] = [name]
-  chunks.push(n)
+glob.sync('./src/pages/**/*.js').forEach(path => {
+  const chunk = path.split('./src/pages/')[1].split('.js')[0]
+  entries[chunk] = path
+  chunks.push(chunk)
 })
 
 const config = {
@@ -97,23 +97,18 @@ const config = {
   devtool: '#eval-source-map'
 }
 
-glob.sync('./src/pages/**/*.html').forEach(function (name) {
-  const pathname = name.slice(name.lastIndexOf('src/') + 4, name.length - 5)
-  // filename used folder's name
-  const conf = {
-    filename: pathname.substring(6, pathname.length - 4) + '.html',
-    template: 'src/' + pathname + '.html'
+glob.sync('./src/pages/**/*.html').forEach(path => {
+  const filename = path.split('./src/pages/')[1].split('/app.html')[0] + '.html'
+  const chunk = path.split('./src/pages/')[1].split('.html')[0]
+  const htmlConf = {
+    filename: filename,
+    template: path,
+    inject: 'body',
+    favicon: './src/assets/img/logo.png',
+    hash: process.env.NODE_ENV === 'production',
+    chunks: ['vendors', chunk]
   }
-  const chunk = pathname.substring(6, pathname.length)
-  if (chunks.indexOf(chunk) > -1) {
-    conf.inject = 'body'
-    conf.chunks = ['vendors', chunk]
-  }
-  if (process.env.NODE_ENV === 'production') {
-    conf.hash = true
-  }
-  conf.favicon = './src/assets/img/logo.png'
-  config.plugins.push(new HtmlWebpackPlugin(conf))
+  config.plugins.push(new HtmlWebpackPlugin(htmlConf))
 })
 
 module.exports = config
