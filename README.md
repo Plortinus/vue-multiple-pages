@@ -1,7 +1,6 @@
 # vue-multiple-pages
 
-**This project is a modern Vue.js starter
-which uses Vue 2, Webpack2, and ElementUI**
+**A modern Vue.js multiple pages starter which uses Vue 2, Webpack2, and Element-UI**
 
 ## Features
 
