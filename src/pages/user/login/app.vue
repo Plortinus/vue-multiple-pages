@@ -32,7 +32,7 @@ export default {
 </script>
 
 <style>
-body {
-  font-family: Helvetica, sans-serif;
-}
+  body {
+    background-color: #c3c3c3;
+  }
 </style>

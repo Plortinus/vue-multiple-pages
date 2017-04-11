@@ -33,7 +33,15 @@ const config = {
     rules: [
       {
         test: /\.vue$/,
-        use: 'vue-loader'
+        loader: 'vue-loader',
+        options: {
+          loaders: {
+            css: ExtractTextPlugin.extract({
+              use: 'css-loader',
+              fallback: 'style-loader'
+            })
+          }
+        }
       },
       {
         test: /\.js$/,
@@ -77,7 +85,7 @@ const config = {
       minChunks: chunks.length
     }),
     new ExtractTextPlugin({
-      filename: 'assets/css/main.css',
+      filename: 'assets/css/[name].css',
       allChunks: true
     })
   ],
