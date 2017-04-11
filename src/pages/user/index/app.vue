@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <modal></modal>
     <div class="dd">
       Index
     </div>
@@ -11,7 +12,11 @@
 
 <script>
 import logo from 'assets/img/logo.png'
+import modal from 'components/modal.vue'
 export default {
+  components: {
+    modal
+  },
   data () {
     return {
       msg: 'Use Vue 2.0 Today!',
