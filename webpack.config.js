@@ -18,7 +18,7 @@ const config = {
   entry: entries,
   output: {
     path: resolve(__dirname, './dist'),
-    filename: '[name].js',
+    filename: 'assets/js/[name].js',
     publicPath: '/'
   },
   resolve: {
