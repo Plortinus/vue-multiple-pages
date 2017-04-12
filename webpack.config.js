@@ -8,8 +8,8 @@ const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin')
 
 const entries = {}
 const chunks = []
-glob.sync('./src/pages/**/*.js').forEach(path => {
-  const chunk = path.split('./src/pages/')[1].split('.js')[0]
+glob.sync('./src/pages/**/app.js').forEach(path => {
+  const chunk = path.split('./src/pages/')[1].split('/app.js')[0]
   entries[chunk] = path
   chunks.push(chunk)
 })
@@ -107,7 +107,7 @@ const config = {
 
 glob.sync('./src/pages/**/*.html').forEach(path => {
   const filename = path.split('./src/pages/')[1].split('/app.html')[0] + '.html'
-  const chunk = path.split('./src/pages/')[1].split('.html')[0]
+  const chunk = path.split('./src/pages/')[1].split('/app.html')[0]
   const htmlConf = {
     filename: filename,
     template: path,

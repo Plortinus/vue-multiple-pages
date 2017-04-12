@@ -79,11 +79,11 @@ node server.js
     ```js
     const entries = {}
     const chunks = []
-    glob.sync('./src/pages/**/*.js').forEach(path => {
+    glob.sync('./src/pages/**/app.js').forEach(path => {
       // Get all the entry js files and forEach them
 
-      const chunk = path.split('./src/pages/')[1].split('.js')[0]
-      // E.g, chunk = 'user/index/app' path = './src/pages/user/index/app.js'
+      const chunk = path.split('./src/pages/')[1].split('/app.js')[0]
+      // E.g, chunk = 'user/index' path = './src/pages/user/index/app.js'
 
       entries[chunk] = path
       // Now we got the entries
@@ -116,15 +116,15 @@ node server.js
     // ...
   }
   // ...
-  glob.sync('./src/pages/**/*.html').forEach(path => {
+  glob.sync('./src/pages/**/app.html').forEach(path => {
     // Get all the html template files and forEach them
     // E.g, path = './src/pages/user/index/app.html'
 
     const filename = path.split('./src/pages/')[1].split('/app.html')[0] + '.html'
     // E.g, the html filename will be 'user/index.html' in the 'dist' folder
 
-    const chunk = path.split('./src/pages/')[1].split('.html')[0]
-    // E,g. the chunk will be 'user/login/app'
+    const chunk = path.split('./src/pages/')[1].split('/app.html')[0]
+    // E,g. the chunk will be 'user/login'
 
     const htmlConf = {
       filename: filename,
@@ -141,4 +141,5 @@ node server.js
 ## Inspired by [element-starter](https://github.com/ElementUI/element-starter)
 
 ## License
+
 MIT
