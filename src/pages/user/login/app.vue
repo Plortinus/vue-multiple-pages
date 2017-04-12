@@ -1,38 +1,73 @@
 <template>
-  <div id="app">
-    <div>
-      Login
+  <el-card class="login-card">
+    <div slot="header">
+      <img :src="logo" class="logo-img">
+      <span class="logo-text">Management System</span>
     </div>
-    <img v-bind:src="logoImg">
-    <h1>{{ msg }}</h1>
-    <el-button @click.native="startHacking">Let's do it</el-button>
-  </div>
+    <el-form class="login" :rules="rules" ref="ruleForm" :model="ruleForm" label-width="100px" >
+      <el-form-item label="Phone" prop="phone">
+        <el-input placeholder="Please enter phone number" icon="my-phone" v-model="ruleForm.phone" type="tel" :maxlength="11"></el-input>
+      </el-form-item>
+      <el-form-item label="Password" prop="password">
+        <el-input placeholder="Please enter password" icon="my-password" v-model="ruleForm.password" type="password" @keyup.enter="login"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="login">Login</el-button>
+      </el-form-item>
+    </el-form>
+  </el-card>
 </template>
 
 <script>
-import logo from 'assets/img/logo.png'
-export default {
-  data () {
-    return {
-      msg: 'Use Vue 2.0 Today!',
-      logoImg: logo
-    }
-  },
+  import qs from 'qs'
+  import logo from 'assets/img/logo.png'
 
-  methods: {
-    startHacking () {
-      this.$notify({
-        title: 'It Works',
-        message: 'We have laid the groundwork for you. Now it\'s your time to build something epic!',
-        duration: 6000
-      })
+  export default {
+    data () {
+      return {
+        logo: logo,
+        ruleForm: {
+          phone: '',
+          password: ''
+        },
+        rules: {
+          phone: [
+             { required: true, message: 'Phone required', trigger: 'blur' }
+          ],
+          password: [
+             { required: true, message: 'Password required', trigger: 'blur' }
+          ]
+        }
+      }
+    },
+
+    methods: {
+      login () {
+        this.$refs.ruleForm.validate((valid) => {
+          if (!valid) {
+            return
+          }
+          location.assign('../user/index.html')
+        })
+      }
     }
   }
-}
 </script>
 
 <style>
-  body {
-    background-color: #c3c3c3;
+  .login-card {
+    width: 800px;
+    margin: 100px auto;
+  }
+  .login {
+    display: block;
+    width: 400px;
+    margin: 100px auto;
+  }
+  .logo-img {
+    width: 90px;
+  }
+  .logo-text {
+    margin-left: 20px;
   }
 </style>

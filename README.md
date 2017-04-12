@@ -31,6 +31,8 @@ npm run dev
 
 [http://localhost:8010/user/index.html](http://localhost:8010/user/index.html)
 
+[http://localhost:8010/customer/index.html](http://localhost:8010/customer/index.html)
+
 ## Build
 
 ``` bash
@@ -50,12 +52,17 @@ node server.js
 │    │    └── img   # img
 │    ├── components # components
 │    └── pages      # pages
-│         └── user  # user part
-│              ├── index  # index.html
-│              │    ├── app.js    # entry js
-│              │    ├── app.html  # html template
-│              │    └── app.vue   # main vue for login
-│              └── login  # login.html
+│         ├── user  # user part
+│         │     ├── index  # index.html
+│         │     │    ├── app.js    # entry js
+│         │     │    ├── app.html  # html template
+│         │     │    └── app.vue   # main vue for login
+│         │     └── login  # login.html
+│         │          ├── app.js    # entry js
+│         │          ├── app.html  # html template
+│         │          └── app.vue   # main vue for login
+│         └── customer  # customer part
+│              └── home  # home.html
 │                   ├── app.js    # entry js
 │                   ├── app.html  # html template
 │                   └── app.vue   # main vue for login
