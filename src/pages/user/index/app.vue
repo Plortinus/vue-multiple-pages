@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <h1>Use PostCSS</h1>
     <modal></modal>
     <div class="dd">
       Index
@@ -36,8 +37,13 @@ export default {
 }
 </script>
 
-<style>
+<style lang="postcss">
   body {
     background-color: #f5f5f5;
+  }
+  :root h1 {
+   --color: red;
+   display: flex;
+   color: var(--color);
   }
 </style>

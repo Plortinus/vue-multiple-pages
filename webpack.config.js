@@ -39,6 +39,10 @@ const config = {
             css: ExtractTextPlugin.extract({
               use: 'css-loader',
               fallback: 'style-loader'
+            }),
+            postcss: ExtractTextPlugin.extract({
+              use: ['css-loader', 'postcss-loader'],
+              fallback: 'style-loader'
             })
           }
         }
@@ -51,8 +55,8 @@ const config = {
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: 'css-loader'
+          use: ['css-loader', 'postcss-loader'],
+          fallback: 'style-loader'
         })
       },
       {
