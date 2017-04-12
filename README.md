@@ -120,11 +120,13 @@ node server.js
     // Get all the html template files and forEach them
     // E.g, path = './src/pages/user/index/app.html'
 
-    const filename = path.split('./src/pages/')[1].split('/app.html')[0] + '.html'
-    // E.g, the html filename will be 'user/index.html' in the 'dist' folder
-
     const chunk = path.split('./src/pages/')[1].split('/app.html')[0]
     // E,g. the chunk will be 'user/login'
+
+    const filename = chunk + '.html'
+    // E.g, the html filename will be 'user/index.html' in the 'dist' folder
+
+
 
     const htmlConf = {
       filename: filename,

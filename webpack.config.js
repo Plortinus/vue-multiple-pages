@@ -106,8 +106,8 @@ const config = {
 }
 
 glob.sync('./src/pages/**/*.html').forEach(path => {
-  const filename = path.split('./src/pages/')[1].split('/app.html')[0] + '.html'
   const chunk = path.split('./src/pages/')[1].split('/app.html')[0]
+  const filename = chunk + '.html'
   const htmlConf = {
     filename: filename,
     template: path,
