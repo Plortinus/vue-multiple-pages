@@ -1,6 +1,6 @@
 {
   "name": "vue-multiple-pages",
-  "version": "1.0.0",
+  "version": "3.0.0",
   "license": "MIT",
   "description": "A modern Vue.js multiple pages starter which uses Vue 2, Webpack2, and Element-UI",
   "devDependencies": {

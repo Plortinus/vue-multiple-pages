@@ -10,38 +10,45 @@
 4. [Eslint](https://github.com/eslint/eslint)
 5. [Postcss](https://github.com/postcss/postcss)
 
-## Start
+## Get Started
 
- - Clone or download this repository
- - Enter your local directory, and install dependencies:
+### [vue-cli](https://github.com/vuejs/vue-cli)
+
+#### Init Project
 
 ``` bash
-npm install
+$ npm install -g vue-cli
+$ vue init Plortinus/vue-multiple-pages new-project
+$ cd new-project
+$ npm install
 ```
 
-## Dev
+#### Dev
 
-``` bash
+```bash
 # serve with hot reload at localhost:8010
-npm run dev
-
+$ npm run dev
 ```
 
-[http://localhost:8010/user/login.html](http://localhost:8010/user/login.html)
+visit [http://localhost:8010/user/login.html](http://localhost:8010/user/login.html)
 
-[http://localhost:8010/user/index.html](http://localhost:8010/user/index.html)
+visit [http://localhost:8010/user/index.html](http://localhost:8010/user/index.html)
 
-[http://localhost:8010/customer/index.html](http://localhost:8010/customer/index.html)
+visit [http://localhost:8010/customer/index.html](http://localhost:8010/customer/index.html)
 
-## Build
+#### Build
 
-``` bash
-# build for production with minification
-npm run build
-node server.js
+```bash
+$ npm run build
+$ node server.js #listen 2333 port
 ```
 
-[http://localhost:2333/user/login.html](http://localhost:2333/user/login.html)
+visit [http://localhost:2333/user/login.html](http://localhost:2333/user/login.html)
+
+visit [http://localhost:2333/user/index.html](http://localhost:2333/user/index.html)
+
+visit [http://localhost:2333/customer/index.html](http://localhost:2333/customer/index.html)
+
 
 ## Root Folder Structure
 
