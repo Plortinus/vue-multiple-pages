@@ -10,7 +10,6 @@ const extractCSS = new ExtractTextPlugin({
   filename: 'assets/css/[name].css',
   allChunks: true
 })
-
 {{#less}}
 const extractLESS = new ExtractTextPlugin({
   filename: 'assets/css/[name].css',
