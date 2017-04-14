@@ -1,6 +1,6 @@
 # vue-multiple-pages
 
-**A modern Vue.js multiple pages starter which uses Vue 2, Webpack2, and Element-UI**
+**A modern Vue.js multiple pages cli which uses Vue 2, Webpack2, and Element-UI**
 
 ## Features
 
