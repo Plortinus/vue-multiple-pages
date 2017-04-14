@@ -6,6 +6,18 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin')
 
+const extractCSS = new ExtractTextPlugin({
+  filename: 'assets/css/[name].css',
+  allChunks: true
+})
+
+{{#less}}
+const extractLESS = new ExtractTextPlugin({
+  filename: 'assets/css/[name].css',
+  allChunks: true
+})
+{{/less}}
+
 const entries = {}
 const chunks = []
 glob.sync('./src/pages/**/app.js').forEach(path => {
@@ -40,6 +52,12 @@ const config = {
               use: 'css-loader',
               fallback: 'style-loader'
             }),
+            {{#less}}
+            less: ExtractTextPlugin.extract({
+              use: ['css-loader', 'postcss-loader', 'less-loader'],
+              fallback: 'style-loader'
+            }),
+            {{/less}}
             postcss: ExtractTextPlugin.extract({
               use: ['css-loader', 'postcss-loader'],
               fallback: 'style-loader'
@@ -59,6 +77,15 @@ const config = {
           fallback: 'style-loader'
         })
       },
+      {{#less}}
+      {
+        test: /\.less$/,
+        use: ExtractTextPlugin.extract({
+          use: ['css-loader', 'postcss-loader', 'less-loader'],
+          fallback: 'style-loader'
+        })
+      },
+      {{/less}}
       {
         test: /\.html$/,
         use: [{
@@ -88,10 +115,10 @@ const config = {
       chunks: chunks,
       minChunks: chunks.length
     }),
-    new ExtractTextPlugin({
-      filename: 'assets/css/[name].css',
-      allChunks: true
-    })
+    {{#less}}
+    extractLESS,
+    {{/less}}
+    extractCSS
   ],
   devServer: {
     host: '127.0.0.1',
