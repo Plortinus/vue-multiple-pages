@@ -7,8 +7,8 @@
 1. [Vue2](https://github.com/vuejs/vue)
 2. [Webpack2](https://github.com/webpack/webpack)
 3. [ElementUI](https://github.com/ElemeFE/element)
-4. [Eslint](https://github.com/eslint/eslint)
-5. [Postcss](https://github.com/postcss/postcss)
+4. [Eslint](https://github.com/eslint/eslint)([eslint-config-vue](https://github.com/vuejs/eslint-config-vue) default)
+5. [Postcss](https://github.com/postcss/postcss)([autoprefixer](https://github.com/postcss/autoprefixer) default)
 5. [Less](http://lesscss.org/)
 
 ## Get Started
