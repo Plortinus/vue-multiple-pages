@@ -9,7 +9,8 @@
 3. [ElementUI](https://github.com/ElemeFE/element)
 4. [Eslint](https://github.com/eslint/eslint)([eslint-config-vue](https://github.com/vuejs/eslint-config-vue) default)
 5. [Postcss](https://github.com/postcss/postcss)([autoprefixer](https://github.com/postcss/autoprefixer) default)
-5. [Less](http://lesscss.org/)
+6. [Less](http://lesscss.org/)
+7. [Cache-loader](https://github.com/webpack-contrib/cache-loader)
 
 ## Get Started
 

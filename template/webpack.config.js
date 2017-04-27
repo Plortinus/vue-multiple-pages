@@ -44,35 +44,44 @@ const config = {
     rules: [
       {
         test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          loaders: {
-            css: ExtractTextPlugin.extract({
-              use: 'css-loader',
-              fallback: 'style-loader'
-            }),
-            {{#less}}
-            less: ExtractTextPlugin.extract({
-              use: ['css-loader', 'postcss-loader', 'less-loader'],
-              fallback: 'style-loader'
-            }),
-            {{/less}}
-            postcss: ExtractTextPlugin.extract({
-              use: ['css-loader', 'postcss-loader'],
-              fallback: 'style-loader'
-            })
+        use: [
+          'cache-loader',
+          {
+            loader: 'vue-loader',
+            options: {
+              loaders: {
+                css: ExtractTextPlugin.extract({
+                  use: ['cache-loader', 'css-loader'],
+                  fallback: 'style-loader'
+                }),
+                {{#less}}
+                less: ExtractTextPlugin.extract({
+                  use: ['cache-loader', 'css-loader', 'postcss-loader', 'less-loader'],
+                  fallback: 'style-loader'
+                }),
+                {{/less}}
+                postcss: ExtractTextPlugin.extract({
+                  use: ['cache-loader', 'css-loader', 'postcss-loader'],
+                  fallback: 'style-loader'
+                })
+              }
+            }
           }
-        }
+        ]
       },
       {
         test: /\.js$/,
-        use: 'babel-loader',
+        use: [
+          'cache-loader',
+          'babel-loader'
+        ],
+        include: resolve('src'),
         exclude: /node_modules/
       },
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
-          use: ['css-loader', 'postcss-loader'],
+          use: ['cache-loader', 'css-loader', 'postcss-loader'],
           fallback: 'style-loader'
         })
       },
@@ -80,30 +89,36 @@ const config = {
       {
         test: /\.less$/,
         use: ExtractTextPlugin.extract({
-          use: ['css-loader', 'postcss-loader', 'less-loader'],
+          use: ['cache-loader', 'css-loader', 'postcss-loader', 'less-loader'],
           fallback: 'style-loader'
         })
       },
       {{/less}}
       {
         test: /\.html$/,
-        use: [{
-          loader: 'html-loader',
-          options: {
-            root: resolve(__dirname, 'src'),
-            attrs: ['img:src', 'link:href']
+        use: [
+          'cache-loader',
+          {
+            loader: 'html-loader',
+            options: {
+              root: resolve(__dirname, 'src'),
+              attrs: ['img:src', 'link:href']
+            }
           }
-        }]
+        ]
       },
       {
         test: /\.(png|jpg|jpeg|gif|eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/,
         exclude: /favicon\.png$/,
-        use: [{
-          loader: 'url-loader',
-          options: {
-            limit: 10000
+        use: [
+          'cache-loader',
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000
+            }
           }
-        }]
+        ]
       }
     ]
   },
