@@ -34,6 +34,10 @@
     "less": "^2.7.2",
     "less-loader": "^4.0.3",
     {{/less}}
+    {{#sass}}
+    "node-sass": "^4.5.3",
+    "postcss-loader": "^1.3.3",
+    {{/sass}}
     "postcss-loader": "^1.3.3",
     "style-loader": "^0.16.1",
     "url-loader": "^0.5.8",
