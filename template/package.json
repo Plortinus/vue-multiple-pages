@@ -9,8 +9,7 @@
   },
   "dependencies": {
     "element-ui": "^1.4.1",
-    "vue": "^2.4.2",
-    "qs": "^6.5.0"
+    "vue": "^2.4.2"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

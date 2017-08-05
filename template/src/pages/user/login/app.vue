@@ -19,7 +19,6 @@
 </template>
 
 <script>
-  import qs from 'qs'
   import logo from 'assets/img/logo.png'
 
   export default {
