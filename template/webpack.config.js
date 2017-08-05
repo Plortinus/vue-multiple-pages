@@ -47,20 +47,20 @@ const config = {
         loader: 'vue-loader',
         options: {
           loaders: {
-            css: ExtractTextPlugin.extract({
+            css: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
               use: 'css-loader',
               fallback: 'style-loader'
-            }),
+            })),
             {{#less}}
-            less: ExtractTextPlugin.extract({
+            less: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
               use: ['css-loader', 'postcss-loader', 'less-loader'],
               fallback: 'style-loader'
-            }),
+            })),
             {{/less}}
-            postcss: ExtractTextPlugin.extract({
+            postcss: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
               use: ['css-loader', 'postcss-loader'],
               fallback: 'style-loader'
-            })
+            }))
           }
         }
       },
