@@ -130,6 +130,7 @@ const config = {
     ]
   },
   plugins: [
+    new webpack.optimize.ModuleConcatenationPlugin(),
     new CommonsChunkPlugin({
       name: 'vendors',
       filename: 'assets/js/vendors.js',
