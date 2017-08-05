@@ -71,18 +71,18 @@ const config = {
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
+        use: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
           use: ['css-loader', 'postcss-loader'],
           fallback: 'style-loader'
-        })
+        }))
       },
       {{#less}}
       {
         test: /\.less$/,
-        use: ExtractTextPlugin.extract({
+        use: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
           use: ['css-loader', 'postcss-loader', 'less-loader'],
           fallback: 'style-loader'
-        })
+        }))
       },
       {{/less}}
       {
