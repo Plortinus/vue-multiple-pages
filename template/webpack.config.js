@@ -156,7 +156,9 @@ const config = {
         changeOrigin: true,
         pathRewrite: { '^/api': '' }
       }
-    }
+    },
+    open: true,
+    openPage: 'user/login.html'
   },
   devtool: '#eval-source-map'
 }
