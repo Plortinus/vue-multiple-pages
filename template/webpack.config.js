@@ -5,6 +5,7 @@ const glob = require('glob')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin')
+const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 
 const extractCSS = new ExtractTextPlugin({
   filename: 'assets/css/[name].css',
@@ -192,6 +193,7 @@ if (process.env.NODE_ENV === 'production') {
       compress: {
         warnings: false
       }
-    })
+    }),
+    new OptimizeCSSPlugin()
   ])
 }
