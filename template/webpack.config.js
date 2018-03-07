@@ -4,10 +4,9 @@ const { join, resolve } = require('path')
 const webpack = require('webpack')
 const glob = require('glob')
 
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+var MultipageWebpackPlugin = require('multipage-webpack-plugin')
 
 const extractCSS = new ExtractTextPlugin({
   filename: 'assets/css/[name].css',
@@ -27,11 +26,9 @@ const extractSASS = new ExtractTextPlugin({
 {{/sass}}
 
 const entries = {}
-const chunks = []
 glob.sync('./src/pages/**/app.js').forEach(path => {
   const chunk = path.split('./src/pages/')[1].split('/app.js')[0]
   entries[chunk] = path
-  chunks.push(chunk)
 })
 
 const config = {
@@ -134,11 +131,20 @@ const config = {
   },
   plugins: [
     new webpack.optimize.ModuleConcatenationPlugin(),
-    new CommonsChunkPlugin({
-      name: 'vendors',
-      filename: 'assets/js/vendors.js',
-      chunks: chunks,
-      minChunks: chunks.length
+    new MultipageWebpackPlugin({
+      // replace [name] in template path
+      htmlTemplatePath: resolve('./src/pages/[name]/app.html'),
+      templateFilename: '[name].html',
+      templatePath: './',
+      // some other options in htmlWebpackPlugin
+      htmlWebpackPluginOptions: {
+        minify: {
+          removeComments: true,
+          collapseWhitespace: true,
+          removeAttributeQuotes: true
+        },
+        hash: process.env.NODE_ENV === 'production'
+      }
     }),
     {{#less}}
     extractLESS,
@@ -165,20 +171,6 @@ const config = {
   },
   devtool: '#eval-source-map'
 }
-
-glob.sync('./src/pages/**/*.html').forEach(path => {
-  const chunk = path.split('./src/pages/')[1].split('/app.html')[0]
-  const filename = chunk + '.html'
-  const htmlConf = {
-    filename: filename,
-    template: path,
-    inject: 'body',
-    favicon: './src/assets/img/logo.png',
-    hash: process.env.NODE_ENV === 'production',
-    chunks: ['vendors', chunk]
-  }
-  config.plugins.push(new HtmlWebpackPlugin(htmlConf))
-})
 
 module.exports = config
 
