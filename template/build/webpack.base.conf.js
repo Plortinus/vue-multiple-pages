@@ -5,45 +5,53 @@ const webpack = require('webpack')
 const glob = require('glob')
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
-var MultipageWebpackPlugin = require('multipage-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const extractCSS = new ExtractTextPlugin({
   filename: 'assets/css/[name].css',
   allChunks: true
 })
-{{#less}}
 const extractLESS = new ExtractTextPlugin({
   filename: 'assets/css/[name].css',
   allChunks: true
 })
-{{/less}}
-{{#sass}}
 const extractSASS = new ExtractTextPlugin({
   filename: 'assets/css/[name].css',
   allChunks: true
 })
-{{/sass}}
 
 const entries = {}
+const chunks = []
+const htmlWebpackPluginArray = []
 glob.sync('./src/pages/**/app.js').forEach(path => {
   const chunk = path.split('./src/pages/')[1].split('/app.js')[0]
   entries[chunk] = path
+  chunks.push(chunk)
+
+  const filename = chunk + '.html'
+  const htmlConf = {
+    filename: filename,
+    template: path.replace(/.js/g, '.html'),
+    inject: 'body',
+    favicon: './src/assets/img/logo.png',
+    hash: true,
+    chunks: ['commons', chunk]
+  }
+  htmlWebpackPluginArray.push(new HtmlWebpackPlugin(htmlConf))
 })
 
 const config = {
   entry: entries,
   output: {
-    path: resolve(__dirname, './dist'),
+    path: resolve(__dirname, '../dist'),
     filename: 'assets/js/[name].js',
     publicPath: '/'
   },
   resolve: {
     extensions: ['.js', '.vue'],
     alias: {
-      assets: join(__dirname, '/src/assets'),
-      components: join(__dirname, '/src/components'),
-      root: join(__dirname, 'node_modules')
+      assets: join(__dirname, '../src/assets'),
+      components: join(__dirname, '../src/components')
     }
   },
   module: {
@@ -54,21 +62,17 @@ const config = {
         options: {
           loaders: {
             css: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
-              use: 'css-loader',
+              use: ['css-loader', 'postcss-loader'],
               fallback: 'style-loader'
             })),
-            {{#less}}
             less: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
               use: ['css-loader', 'postcss-loader', 'less-loader'],
               fallback: 'style-loader'
             })),
-            {{/less}}
-            {{#sass}}
             scss: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
               use: ['css-loader', 'postcss-loader', 'sass-loader'],
               fallback: 'style-loader'
             })),
-            {{/sass}}
             postcss: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
               use: ['css-loader', 'postcss-loader'],
               fallback: 'style-loader'
@@ -88,7 +92,6 @@ const config = {
           fallback: 'style-loader'
         }))
       },
-      {{#less}}
       {
         test: /\.less$/,
         use: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
@@ -96,8 +99,6 @@ const config = {
           fallback: 'style-loader'
         }))
       },
-      {{/less}}
-      {{#sass}}
       {
         test: /\.scss$/,
         use: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
@@ -105,7 +106,6 @@ const config = {
           fallback: 'style-loader'
         }))
       },
-      {{/sass}}
       {
         test: /\.html$/,
         use: [{
@@ -129,66 +129,27 @@ const config = {
       }
     ]
   },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          chunks: 'initial',
+          minChunks: 3,
+          name: 'commons',
+          enforce: true
+        }
+      }
+    }
+  },
+  performance: {
+    hints: false
+  },
   plugins: [
     new webpack.optimize.ModuleConcatenationPlugin(),
-    new MultipageWebpackPlugin({
-      // replace [name] in template path
-      htmlTemplatePath: resolve('./src/pages/[name]/app.html'),
-      templateFilename: '[name].html',
-      templatePath: './',
-      // some other options in htmlWebpackPlugin
-      htmlWebpackPluginOptions: {
-        minify: {
-          removeComments: true,
-          collapseWhitespace: true,
-          removeAttributeQuotes: true
-        },
-        hash: process.env.NODE_ENV === 'production'
-      }
-    }),
-    {{#less}}
     extractLESS,
-    {{/less}}
-    {{#sass}}
     extractSASS,
-    {{/sass}}
     extractCSS
-  ],
-  devServer: {
-    host: '127.0.0.1',
-    port: 8010,
-    historyApiFallback: false,
-    noInfo: true,
-    proxy: {
-      '/api': {
-        target: 'http://127.0.0.1:8080',
-        changeOrigin: true,
-        pathRewrite: { '^/api': '' }
-      }
-    },
-    open: true,
-    openPage: 'user/login.html'
-  },
-  devtool: '#eval-source-map'
+  ]
 }
-
+config.plugins = [...config.plugins, ...htmlWebpackPluginArray]
 module.exports = config
-
-if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = '#source-map'
-  // http://vue-loader.vuejs.org/en/workflow/production.html
-  module.exports.plugins = (module.exports.plugins || []).concat([
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      },
-      sourceMap: true
-    }),
-    new OptimizeCSSPlugin()
-  ])
-}
