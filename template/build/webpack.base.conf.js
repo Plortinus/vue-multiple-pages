@@ -11,14 +11,18 @@ const extractCSS = new ExtractTextPlugin({
   filename: 'assets/css/[name].css',
   allChunks: true
 })
+{{#less}}
 const extractLESS = new ExtractTextPlugin({
   filename: 'assets/css/[name].css',
   allChunks: true
 })
+{{/less}}
+{{#sass}}
 const extractSASS = new ExtractTextPlugin({
   filename: 'assets/css/[name].css',
   allChunks: true
 })
+{{/sass}}
 
 const entries = {}
 const chunks = []
@@ -65,14 +69,18 @@ const config = {
               use: ['css-loader', 'postcss-loader'],
               fallback: 'style-loader'
             })),
+            {{#less}}
             less: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
               use: ['css-loader', 'postcss-loader', 'less-loader'],
               fallback: 'style-loader'
             })),
+            {{/less}}
+            {{#sass}}
             scss: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
               use: ['css-loader', 'postcss-loader', 'sass-loader'],
               fallback: 'style-loader'
             })),
+            {{/sass}}
             postcss: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
               use: ['css-loader', 'postcss-loader'],
               fallback: 'style-loader'
@@ -92,6 +100,7 @@ const config = {
           fallback: 'style-loader'
         }))
       },
+      {{#less}}
       {
         test: /\.less$/,
         use: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
@@ -99,6 +108,8 @@ const config = {
           fallback: 'style-loader'
         }))
       },
+      {{/less}}
+      {{#sass}}
       {
         test: /\.scss$/,
         use: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
@@ -106,6 +117,7 @@ const config = {
           fallback: 'style-loader'
         }))
       },
+      {{/sass}}
       {
         test: /\.html$/,
         use: [{
@@ -146,8 +158,12 @@ const config = {
   },
   plugins: [
     new webpack.optimize.ModuleConcatenationPlugin(),
+    {{#less}}
     extractLESS,
+    {{/less}}
+    {{#sass}}
     extractSASS,
+    {{/sass}}
     extractCSS
   ]
 }
