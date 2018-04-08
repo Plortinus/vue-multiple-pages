@@ -44,6 +44,32 @@ glob.sync('./src/pages/**/app.js').forEach(path => {
   htmlWebpackPluginArray.push(new HtmlWebpackPlugin(htmlConf))
 })
 
+const styleLoaderOptions = {
+  loader: 'style-loader',
+  options: {
+    sourceMap: true
+  }
+}
+const cssOptions = [
+  { loader: 'css-loader', options: { sourceMap: true } },
+  { loader: 'postcss-loader', options: { sourceMap: true } }
+]
+{{#less}}
+const lessOptions = [...cssOptions, {
+  loader: 'less-loader',
+  options: {
+    sourceMap: true
+  }
+}]
+{{/less}}
+{{#sass}}
+const sassOptions = [...cssOptions, {
+  loader: 'sass-loader',
+  options: {
+    sourceMap: true
+  }
+}]
+{{/sass}}
 const config = {
   entry: entries,
   output: {
@@ -66,25 +92,21 @@ const config = {
         options: {
           loaders: {
             css: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
-              use: ['css-loader', 'postcss-loader'],
-              fallback: 'style-loader'
+              use: cssOptions,
+              fallback: styleLoaderOptions
             })),
             {{#less}}
             less: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
-              use: ['css-loader', 'postcss-loader', 'less-loader'],
-              fallback: 'style-loader'
+              use: lessOptions,
+              fallback: styleLoaderOptions
             })),
             {{/less}}
             {{#sass}}
             scss: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
-              use: ['css-loader', 'postcss-loader', 'sass-loader'],
-              fallback: 'style-loader'
+              use: sassOptions,
+              fallback: styleLoaderOptions
             })),
             {{/sass}}
-            postcss: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
-              use: ['css-loader', 'postcss-loader'],
-              fallback: 'style-loader'
-            }))
           }
         }
       },
@@ -96,16 +118,16 @@ const config = {
       {
         test: /\.css$/,
         use: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
-          use: ['css-loader', 'postcss-loader'],
-          fallback: 'style-loader'
+          use: cssOptions,
+          fallback: styleLoaderOptions
         }))
       },
       {{#less}}
       {
         test: /\.less$/,
         use: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
-          use: ['css-loader', 'postcss-loader', 'less-loader'],
-          fallback: 'style-loader'
+          use: lessOptions,
+          fallback: styleLoaderOptions
         }))
       },
       {{/less}}
@@ -113,8 +135,8 @@ const config = {
       {
         test: /\.scss$/,
         use: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
-          use: ['css-loader', 'postcss-loader', 'sass-loader'],
-          fallback: 'style-loader'
+          use: sassOptions,
+          fallback: styleLoaderOptions
         }))
       },
       {{/sass}}
