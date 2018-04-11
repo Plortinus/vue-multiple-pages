@@ -107,6 +107,10 @@ const config = {
               fallback: styleLoaderOptions
             })),
             {{/sass}}
+            postcss: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
+              use: cssOptions,
+              fallback: styleLoaderOptions
+            }))
           }
         }
       },
