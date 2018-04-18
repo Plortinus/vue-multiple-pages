@@ -13,7 +13,7 @@
 
 ## Get Started
 
-### [vue-cli](https://github.com/vuejs/vue-cli)
+### [vue-cli2](https://github.com/vuejs/vue-cli)
 
 #### Init Project
 
