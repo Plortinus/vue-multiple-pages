@@ -1,9 +1,23 @@
 {
-  "name": "vue-multiple-pages",
-  "version": "4.0.0",
-  "license": "MIT",
-  "description": "A modern Vue.js multiple pages starter which uses Vue 2, Webpack2, and Element-UI",
+  "name": "multiple-pages",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "element-ui": "^2.4.6",
+    "vue": "^2.5.17"
+  },
   "devDependencies": {
-    "vue-cli": "^2.8.1"
+    "@vue/cli-plugin-babel": "^3.0.0",
+    "@vue/cli-plugin-eslint": "^3.0.0",
+    "@vue/cli-service": "^3.0.0",
+    "@vue/eslint-config-prettier": "^3.0.0",
+    "less": "^3.0.4",
+    "less-loader": "^4.1.0",
+    "vue-template-compiler": "^2.5.17"
   }
 }

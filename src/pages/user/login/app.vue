@@ -19,41 +19,38 @@
 </template>
 
 <script>
-  import logo from 'assets/img/logo.png'
-
-  export default {
-    data () {
-      return {
-        logo: logo,
-        ruleForm: {
-          phone: '',
-          password: ''
-        }
-      }
-    },
-
-    methods: {
-      login () {
-        location.assign('../user/index.html')
+export default {
+  data() {
+    return {
+      ruleForm: {
+        phone: '',
+        password: ''
       }
     }
+  },
+
+  methods: {
+    login() {
+      location.assign('../index.html')
+    }
   }
+}
 </script>
 
 <style>
-  .login-card {
-    width: 800px;
-    margin: 100px auto;
-  }
-  .login {
-    display: block;
-    width: 400px;
-    margin: 100px auto;
-  }
-  .logo-img {
-    width: 90px;
-  }
-  .logo-text {
-    margin-left: 20px;
-  }
+.login-card {
+  width: 800px;
+  margin: 100px auto;
+}
+.login {
+  display: block;
+  width: 400px;
+  margin: 100px auto;
+}
+.logo-img {
+  width: 90px;
+}
+.logo-text {
+  margin-left: 20px;
+}
 </style>
